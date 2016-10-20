@@ -1,0 +1,10 @@
+{
+    "name": "bekup/backend-malang",
+    "authors": [
+        {
+            "name": "Yuri Pratama",
+            "email": "hello@yuripertamax.me"
+        }
+    ],
+    "require": {}
+}
