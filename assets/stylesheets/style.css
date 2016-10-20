@@ -1,1 +1,13 @@
 /* place your style here */
+
+img {
+    border-radius: 50%;
+    width:200px;
+    height: 200px;
+    margin: 10px 10px 10px 10px;
+}
+
+.biodata {
+	font-family: calibri;
+	font-weight: bold;
+}
