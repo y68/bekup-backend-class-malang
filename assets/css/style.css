@@ -17,7 +17,6 @@ body{
 }
 .team{
     padding:75px 0;
-
 }
 h6.description{
 	font-weight: bold;
@@ -143,4 +142,9 @@ i.red{
     0% { opacity:1; }
     50% { opacity:0; }
     100% { opacity:1; }
+}
+.couch{
+    padding:75px 0;
+    background: #f4f4f4;
+    height: 500px;
 }
