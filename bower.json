@@ -1,0 +1,17 @@
+{
+  "name": "tugas kelompok bekup",
+  "homepage": "https://github.com/y68/bekup-backend-class-malang",
+  "authors": [
+    "Januar Fonti <me@januarfonti.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
