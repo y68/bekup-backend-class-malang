@@ -34,34 +34,7 @@
                 <div class="col-lg-12">
                   <h6 class="description">PESERTA BACKEND MALANG</h6>
                   <div class="row pt-md">
-                    <!-- READY FOR LOOPING -->
-                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                      <div class="img-box">
-                        <img src="http://altdaily.com/wp-content/uploads/2016/09/potter_1.jpg" class="img img-responsive">
-                        <ul class="text-center">
-                          <a href="#"><li><i class="fa fa-facebook"></i></li></a>
-                          <a href="#"><li><i class="fa fa-twitter"></i></li></a>
-                          <a href="#"><li><i class="fa fa-linkedin"></i></li></a>
-                        </ul>
-                      </div>
-                      <h1>Heri Wahyudianto</h1>
-                      <h2>A witch programmer</h2>
-                      <p>Tons of lines cdoe has been deployed since 1998</p>
-                    </div>
-                    <!-- END LOOPING -->
-                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                      <div class="img-box">
-                        <img src="photos/kefi.jpg" class="img-responsive">
-                        <ul class="text-center">
-                          <a href="#"><li><i class="fa fa-facebook"></i></li></a>
-                          <a href="#"><li><i class="fa fa-twitter"></i></li></a>
-                          <a href="#"><li><i class="fa fa-linkedin"></i></li></a>
-                        </ul>
-                      </div>
-                      <h1>Kefi Kurniawan</h1>
-                      <h2>Beginner Backend</h2>
-                      <p>Mahasiswa semester 3 UNMER MALANG</p>
-                    </div>
+
                   </div>
                 </div>
               </div>
@@ -86,5 +59,30 @@
             });
         });
     </script>
+    <script type="text/javascript">
+		    $.ajax({url: "api/show", success: function(result){
+		        result = $.parseJSON(result);
+		        console.log(result);
+		        $.each(result, function(i,l){
+		        	card =
+		    `<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
+              <div class="img-box">
+                <img src="`+l['photoProfile']+`" alt="`+l['nama']+`" class="img img-responsive">
+                <ul class="text-center">
+                  <a href="#"><li><i class="fa fa-facebook"></i></li></a>
+                  <a href="#"><li><i class="fa fa-twitter"></i></li></a>
+                  <a href="#"><li><i class="fa fa-linkedin"></i></li></a>
+                </ul>
+              </div>
+              <div class="text-center">
+              <h1>`+l['nama']+`</h1>
+              <h2>`+l['pekerjaan']+`</h2>
+              <p>`+l['instansi']+`</p>
+              </div>
+            </div>`;
+		        	$(".pt-md").append(card);
+		        });
+		    }});
+		</script>
   </body>
 </html>
