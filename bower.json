@@ -1,5 +1,5 @@
 {
-  "name": "tugas kelompok bekup",
+  "name": "tugas-kelompok-bekup",
   "homepage": "https://github.com/y68/bekup-backend-class-malang",
   "authors": [
     "Januar Fonti <me@januarfonti.com>"
@@ -13,5 +13,11 @@
     "bower_components",
     "test",
     "tests"
-  ]
+],
+"dependencies": {
+  "bootstrap": "^3.3.7",
+  "jquery": "^1.12.4",
+  "typed.js": "^1.1.4",
+  "stellar.js": "^0.6.2"
+}
 }
