@@ -8,6 +8,8 @@
     ],
     "require": {
         "slim/slim": "^2.2",
-        "components/jquery": "^3.1"
+        "components/jquery": "^3.1",
+        "twbs/bootstrap": "^3.3",
+        "FortAwesome/Font-Awesome": "^4.7"
     }
 }
