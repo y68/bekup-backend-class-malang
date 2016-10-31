@@ -7,8 +7,8 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>BEKUP Backend Class Malang - Profile Page</title>
 
-    <link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/fortawesome/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -82,10 +82,10 @@
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="vendor/components/jquery/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/typed.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/1.1.4/typed.min.js"></script>
     <script>
         $(function(){
             $(".mutiara").typed({
@@ -102,18 +102,22 @@
 		        result = $.parseJSON(result);
 		        console.log(result);
 		        $.each(result, function(i,l){
-		        	card =
+                    card =
 		    `<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
               <div class="img-box">
                 <img src="`+l['photoProfile']+`" alt="`+l['nama']+`" class="img img-responsive">
                 <ul class="text-center">
                   <a href="mailto:`+l['email']+`"><li><i class="fa fa-envelope-o"></i></li></a>
+                  <a href="`+l['linkFacebook']+`"><li><i class="fa fa-facebook"></i></li></a>
+                  <a href="`+l['linkYoutube']+`"><li><i class="fa fa-youtube"></i></li></a>
+                  <a href="`+l['linkTwitter']+`"><li><i class="fa fa-twitter"></i></li></a>
                 </ul>
               </div>
               <div class="text-center">
               <h1>`+l['nama']+`</h1>
               <h2>`+l['pekerjaan']+`</h2>
               <p>`+l['instansi']+`</p>
+              <p><a href="`+l['linkProject']+`" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-external-link"></i> Project</a></p>
               </div>
             </div>`;
 		        	$(".pt-md").append(card);
