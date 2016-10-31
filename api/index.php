@@ -10,7 +10,7 @@
 	});
 
 	$app->post('/insert', function()use($app){
-		echo DBConnection()->exec("insert into ProfileUser (id) values ('".$app->request->post('id')."');");
+		echo DBConnection()->exec("insert into ProfileUser (id, nama, pekerjaan, email, instansi, photoProfile, note, linkProject, linkFacebook, linkTwitter, modifiedBy, dateModified) values ('".$app->request->post('id')."','".$app->request->post('nama')."','".$app->request->post('pekerjaan')."','".$app->request->post('email')."','".$app->request->post('instansi')."','".$app->request->post('photoProfile')."','".$app->request->post('note')."','".$app->request->post('linkProject')."','".$app->request->post('linkFacebook')."','".$app->request->post('linkTwitter')."','modifiedBy',now());");
 	});
 
 	$app->put('/update/:id', function($id)use($app){
