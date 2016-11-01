@@ -65,8 +65,13 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Tambah peserta</h4>
                 </div>
+                <?php if ($this->session->flashdata('pesan') <> '') { ?>
+                    <center>
+                        <?php echo $this->session->flashdata('pesan'); ?>
+                    </center>
+                <?php } ?>
                 <div class="modal-body">
-                    <form id="formpeserta" class="form-horizontal">
+                    <form action="#" id="formpeserta" class="form-horizontal">
                         <div class="form-group">
                             <label class="col-md-3 col-sm-3" style="text-align:left">Nama</label>
                             <input type="text" class="col-md-8 col-sm-8" name="nama">
@@ -139,15 +144,46 @@
     function tambah()
     {
         save_method = 'add';
+        // $('#modal_form')[0].reset();
+        $('.form-group').removeClass('has-error');
+        $('.help-block').empty();
         $('#modal_form').modal('show');
         $('.modal-title').text('Tambah Peserta');
     }
 
-    function edit()
+    function edit(id)
     {
         save_method = 'update';
-        $('#modal_form').modal('show');
-        $('.modal-title').text('Edit Peserta');
+        // $('#modal_form')[0].reset();
+        $('.form-group').removeClass('has-error');
+        $('.help-block').empty();
+
+        //Ajax Load data from ajax
+        $.ajax({
+            url : "<?php echo site_url('Crud/edit')?>/" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data)
+            {
+                $('[name="id"]').val(data.id);
+                $('[name="nama"]').val(data.nama);
+                $('[name="pekerjaan"]').val(data.pekerjaan);
+                $('[name="email"]').val(data.email);
+                $('[name="instansi"]').val(data.instansi);
+                $('[name="note"]').val(data.note);
+                $('[name="project"]').val(data.project);
+                $('[name="facebook"]').val(data.facebook);
+                $('[name="youtube"]').val(data.youtube);
+                $('[name="twitter"]').val(data.twitter);
+                $('#modal_form').modal('show');
+                $('.modal-title').text('Edit Peserta');
+
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error get data from ajax');
+            }
+        });
     }
 
     function save()
@@ -155,13 +191,11 @@
         $('#simpan').text('Menyimpan...');
         $('#simpan').attr('disabled',true);
         var url;
-
         if(save_method == 'add') {
-            url = "api/insert";
+            url = "<?php echo site_url('crud/add')?>";
         } else {
-            url = "api/update";
+            url = "<?php echo site_url('crud/update')?>";
         }
-
         $.ajax({
             url : url,
             type: "POST",
@@ -169,6 +203,7 @@
             dataType: "JSON",
             success: function(data)
             {
+                alert(data);
                 if(data.status)
                 {
                     $('#modal_form').modal('hide');
@@ -179,7 +214,7 @@
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                alert('Error adding / update data');
+                alert('Error: ' + jqXHR + textStatus + errorThrown);
                 $('#simpan').text('Simpan');
                 $('#simpan').attr('disabled',false);
             }
@@ -205,7 +240,7 @@
             <td>`+l['note']+`</td>
             <td>
             <div class="btn-group-sm" role="group">
-            <button id="update`+l['id']+`" class="btn btn-success" data-toggle="modal" data-target="#modal_form">Update</button>
+            <button id="update`+l['id']+`" onclick="edit()" class="btn btn-success">Update</button>
             <button id="delete`+l['id']+`" type="button" class="btn btn-danger">Delete</button>
             </div>
             </td>

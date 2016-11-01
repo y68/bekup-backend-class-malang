@@ -3,62 +3,103 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Crud extends CI_Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper(array('form','url'));
+        $this->load->model('Model_peserta');
+        $this->load->library('upload');
+    }
     public function index()
+	{
+		$this->load->view('crud');
+	}
+
+    public function add()
     {
-        $this->load->view('crud');
+        $this->load->helper('file');
+        $filename = "file_".time();
+        $config['upload_path'] = 'photos/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp';
+        $config['max_size'] = '3072';
+        $config['max_width'] = '5000';
+        $config['max_height'] = '5000';
+        $config['file_name'] = $filename;
+
+        $this->upload->initialize($config);
+
+        if ($this->upload->do_upload('foto')) {
+            $foto = $this->upload->data();
+            $nama = $this->input->post('nama');
+            $pekerjaan = $this->input->post('pekerjaan');
+            $email = $this->input->post('email');
+            $instansi = $this->input->post('instansi');
+            $note = $this->input->post('note');
+            $project = $this->input->post('project');
+            $facebook = $this->input->post('facebook');
+            $youtube = $this->input->post('youtube');
+            $twitter = $this->input->post('twitter');
+            $data = array(
+                'nama' => $nama,
+                'pekerjaan' => $pekerjaan,
+                'email' => $email,
+                'instansi' => $instansi,
+                'photoProfile' => $foto['file_name'],
+                'note' => $note,
+                'linkProject' => $project,
+                'linkFacebook' => $facebook,
+                'linkYoutube' => $youtube,
+                'linkTwitter' => $twitter
+            );
+            $insert = $this->Model_peserta->save($data);
+            echo json_encode(array("status" => TRUE));
+        }
     }
 
-    public function ajax_add()
+    public function update()
     {
-        $data = array(
-            'nama' => $this->input->post('nama'),
-            'pekerjaan' => $this->input->post('pekerjaan'),
-            'email' => $this->input->post('email'),
-            'instansi' => $this->input->post('instansi'),
-            'photoProfile' => $this->input->post('foto'),
-            'note' => $this->input->post('note'),
-            'linkProject' => $this->input->post('project'),
-            'linkFacebook' => $this->input->post('facebook'),
-            'linkYoutube' => $this->input->post('youtube'),
-            'linkTwitter' => $this->input->post('twitter'),
-        );
+        $this->load->helper('file');
+        $filename = "file_".time();
+        $config['upload_path'] = 'photos/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp';
+        $config['max_size'] = '3072';
+        $config['max_width'] = '5000';
+        $config['max_height'] = '5000';
+        $config['file_name'] = $filename;
 
-        $data_string = json_encode($data);
+        $this->upload->initialize($config);
 
-        $curl = curl_init('api/insert');
-
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($data_string))
-        );
-
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
-
-        $result = curl_exec($curl);
-
-        curl_close($curl);
-
-        echo $result;
+        if ($this->upload->do_upload('foto')) {
+            $foto = $this->upload->data();
+            $nama = $this->input->post('nama');
+            $pekerjaan = $this->input->post('pekerjaan');
+            $email = $this->input->post('email');
+            $instansi = $this->input->post('instansi');
+            $note = $this->input->post('note');
+            $project = $this->input->post('project');
+            $facebook = $this->input->post('facebook');
+            $youtube = $this->input->post('youtube');
+            $twitter = $this->input->post('twitter');
+            $data = array(
+                'nama' => $nama,
+                'pekerjaan' => $pekerjaan,
+                'email' => $email,
+                'instansi' => $instansi,
+                'photoProfile' => $foto['file_name'],
+                'note' => $note,
+                'linkProject' => $project,
+                'linkFacebook' => $facebook,
+                'linkYoutube' => $youtube,
+                'linkTwitter' => $twitter
+            );
+            $this->Model_peserta->update(array('id' => $this->input->post('id')), $data);
+            echo json_encode(array("status" => TRUE));
+        }
     }
 
-    public function ajax_update()
+    public function edit($id)
     {
-        $data = array(
-            'nama' => $this->input->post('nama'),
-            'pekerjaan' => $this->input->post('pekerjaan'),
-            'email' => $this->input->post('email'),
-            'instansi' => $this->input->post('instansi'),
-            'photoProfile' => $this->input->post('foto'),
-            'note' => $this->input->post('note'),
-            'linkProject' => $this->input->post('project'),
-            'linkFacebook' => $this->input->post('facebook'),
-            'linkYoutube' => $this->input->post('youtube'),
-            'linkTwitter' => $this->input->post('twitter'),
-        );
-        $this->person->update(array('id' => $this->input->post('id')), $data);
-        echo json_encode(array("status" => TRUE));
+        $data = $this->Model_peserta->get_by_id($id);
+        echo json_encode($data);
     }
 }
