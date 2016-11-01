@@ -9,6 +9,7 @@ class Crud extends CI_Controller {
         $this->load->helper(array('form','url'));
         $this->load->model('Model_peserta');
         $this->load->library('upload');
+	header("access-control-allow-origin: *");
     }
     public function index()
 	{
