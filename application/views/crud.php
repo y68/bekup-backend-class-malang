@@ -204,7 +204,7 @@
             dataType: "JSON",
             success: function(data)
             {
-                alert(data);
+                //alert(data);
                 if(data.status)
                 {
                     $('#modal_form').modal('hide');
@@ -212,6 +212,7 @@
                 }
                 $('#simpan').text('Simpan');
                 $('#simpan').attr('disabled',false);
+                reload_table();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -224,32 +225,31 @@
 
     function reload_table()
     {
-        table.ajax.reload(null,false);
+        $.ajax({url: "api/show", success: function(result){
+            result = $.parseJSON(result);
+            table_body="";
+            $.each(result, function(i,l){
+                table_body +=
+                    `<tr>
+                    <td>`+l['id']+`</td>
+                    <td>`+l['nama']+`</td>
+                    <td>`+l['pekerjaan']+`</td>
+                    <td>`+l['email']+`</td>
+                    <td>`+l['instansi']+`</td>
+                    <td><div class="img-box"><img src="`+l['photoProfile']+`" alt="`+l['nama']+`" class="img img-responsive"></div></td>
+                    <td>`+l['note']+`</td>
+                    <td>
+                    <div class="btn-group-sm" role="group">
+                    <button id="update`+l['id']+`" onclick="edit(`+l['id']+`)" class="btn btn-success">Update</button>
+                    <button id="delete`+l['id']+`" type="button" class="btn btn-danger">Delete</button>
+                    </div>
+                    </td>
+                    </tr>`;
+            });
+            $(".table-body").html(table_body);
+        }});
     }
-
-    $.ajax({url: "api/show", success: function(result){
-        result = $.parseJSON(result);
-        $.each(result, function(i,l){
-            row =
-            `<tr>
-            <td>`+l['id']+`</td>
-            <td>`+l['nama']+`</td>
-            <td>`+l['pekerjaan']+`</td>
-            <td>`+l['email']+`</td>
-            <td>`+l['instansi']+`</td>
-            <td><div class="img-box"><img src="`+l['photoProfile']+`" alt="`+l['nama']+`" class="img img-responsive"></div></td>
-            <td>`+l['note']+`</td>
-            <td>
-            <div class="btn-group-sm" role="group">
-            <button id="update`+l['id']+`" onclick="edit(`+l['id']+`)" class="btn btn-success">Update</button>
-            <button id="delete`+l['id']+`" type="button" class="btn btn-danger">Delete</button>
-            </div>
-            </td>
-            </tr>`;
-            $(".table-body").append(row);
-        });
-    }});
-
+    reload_table();
     $.ajax({url: "api/show", success: function(result){
         result = $.parseJSON(result);
         $.each(result, function(i,l){

@@ -29,34 +29,32 @@ class Crud extends CI_Controller {
 
         $this->upload->initialize($config);
 
+        $nama = $this->input->post('nama');
+        $pekerjaan = $this->input->post('pekerjaan');
+        $email = $this->input->post('email');
+        $instansi = $this->input->post('instansi');
+        $note = $this->input->post('note');
+        $project = $this->input->post('project');
+        $facebook = $this->input->post('facebook');
+        $youtube = $this->input->post('youtube');
+        $twitter = $this->input->post('twitter');
+        $data = array(
+            'nama' => $nama,
+            'pekerjaan' => $pekerjaan,
+            'email' => $email,
+            'instansi' => $instansi,
+            'note' => $note,
+            'linkProject' => $project,
+            'linkFacebook' => $facebook,
+            'linkYoutube' => $youtube,
+            'linkTwitter' => $twitter
+        );
         if ($this->upload->do_upload('foto')) {
             $foto = $this->upload->data();
-            $nama = $this->input->post('nama');
-            $pekerjaan = $this->input->post('pekerjaan');
-            $email = $this->input->post('email');
-            $instansi = $this->input->post('instansi');
-            $note = $this->input->post('note');
-            $project = $this->input->post('project');
-            $facebook = $this->input->post('facebook');
-            $youtube = $this->input->post('youtube');
-            $twitter = $this->input->post('twitter');
-            $data = array(
-                'nama' => $nama,
-                'pekerjaan' => $pekerjaan,
-                'email' => $email,
-                'instansi' => $instansi,
-                'photoProfile' => $foto['file_name'],
-                'note' => $note,
-                'linkProject' => $project,
-                'linkFacebook' => $facebook,
-                'linkYoutube' => $youtube,
-                'linkTwitter' => $twitter
-            );
-            $insert = $this->Model_peserta->save($data);
-            echo json_encode(array("status" => TRUE));
-        } else {
-            echo json_encode(['status'=>FALSE]);
+            $data['photoProfile'] = $foto['file_name'];
         }
+        $insert = $this->Model_peserta->save($data);
+        echo json_encode(["success"=>$insert]);
         die();
     }
 
