@@ -160,7 +160,7 @@
 
         //Ajax Load data from ajax
         $.ajax({
-            url : "<?php echo site_url('Crud/edit')?>/" + id,
+            url : "crud/edit/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -192,9 +192,9 @@
         $('#simpan').attr('disabled',true);
         var url;
         if(save_method == 'add') {
-            url = "<?php echo site_url('crud/add')?>";
+            url = "crud/add";
         } else {
-            url = "<?php echo site_url('crud/update')?>";
+            url = "crud/update";
         }
         $.ajax({
             url : url,
