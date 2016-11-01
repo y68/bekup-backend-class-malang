@@ -86,6 +86,12 @@
 			<h4 class="text-center">Masuk</h4>
 			<form action="<?= base_url(); ?>peserta/do_login" method="post">
             <div class="container">
+                <?php if ( @$_SESSION['failedLogin']): ?>
+                <p class="text text-danger">Maaf, harus login terlebih dahulu untuk melanjutkan!</p>
+                <?php 
+                unset($_SESSION['failedLogin']);
+                endif;
+                ?>
                 <div class="form-group">
                     <label><strong>Username</strong></label><br/>
                     <input type="text" id="uname" placeholder="Masukkan username atau email" name="uname" required autocomplete="off" />
@@ -99,7 +105,7 @@
                 <button type="submit" class="submitbtn">Login</button>
                 <button type="button" class="cancelbtn" onclick="this.form.reset();">Ulangi</button>
                 <?php if ( @$_SESSION['gagal']): ?>
-                <br/><p class="label label-danger">Username atau password salah!</p>
+                <br/><p class="text text-danger">Username atau password salah!</p>
                 <?php 
                 unset($_SESSION['gagal']);
                 endif; 

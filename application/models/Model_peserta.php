@@ -23,4 +23,17 @@ class Model_peserta extends CI_Model {
         $query = $this->db->get();
         return $query->row();
     }
+
+    public function loginAuth($username , $password)
+    {
+        $this->db->where( array('username' => $username , 'password' => $password));
+        $query = $this->db->get('User');
+
+        if ( $query->num_rows() > 0)
+        {
+            return TRUE;
+        }
+        
+        return FALSE;
+    }
 }

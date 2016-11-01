@@ -13,6 +13,12 @@ class Crud extends CI_Controller {
     }
     public function index()
 	{
+        if ( ! isset($_SESSION['login']))
+        {
+            $_SESSION['failedLogin'] = TRUE;
+            redirect('/peserta/login');
+        }
+
 		$this->load->view('crud');
 	}
 
