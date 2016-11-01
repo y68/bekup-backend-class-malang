@@ -72,6 +72,7 @@
                 <?php } ?>
                 <div class="modal-body">
                     <form action="#" id="formpeserta" class="form-horizontal">
+                        <input type="hidden" name="id">
                         <div class="form-group">
                             <label class="col-md-3 col-sm-3" style="text-align:left">Nama</label>
                             <input type="text" class="col-md-8 col-sm-8" name="nama">
@@ -240,7 +241,7 @@
             <td>`+l['note']+`</td>
             <td>
             <div class="btn-group-sm" role="group">
-            <button id="update`+l['id']+`" onclick="edit()" class="btn btn-success">Update</button>
+            <button id="update`+l['id']+`" onclick="edit(`+l['id']+`)" class="btn btn-success">Update</button>
             <button id="delete`+l['id']+`" type="button" class="btn btn-danger">Delete</button>
             </div>
             </td>

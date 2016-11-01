@@ -4,14 +4,16 @@ class Model_peserta extends CI_Model {
 
     public function save($data)
     {
-        $this->db->insert('ProfileUser', $data);
+        $this->db->set($data);
+        $this->db->insert('ProfileUser');
         return $this->db->insert_id();
     }
 
     public function update($where, $data)
     {
-        $this->db->update('ProfileUser', $data, $where);
-        return $this->db->affected_rows();
+        $this->db->where('id', $where['id']);
+        $this->db->set($data);
+        return $this->db->update('ProfileUser');
     }
 
     public function get_by_id($id)
