@@ -71,7 +71,7 @@
                     </center>
                 <?php } ?>
                 <div class="modal-body">
-                    <form action="#" id="formpeserta" class="form-horizontal">
+                    <form action="#" id="formpeserta" class="form-horizontal"  enctype="multipart/form-data">
                         <input type="hidden" name="id">
                         <div class="form-group">
                             <label class="col-md-3 col-sm-3" style="text-align:left">Nama</label>
