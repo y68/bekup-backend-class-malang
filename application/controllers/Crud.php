@@ -54,7 +54,10 @@ class Crud extends CI_Controller {
             );
             $insert = $this->Model_peserta->save($data);
             echo json_encode(array("status" => TRUE));
+        } else {
+            echo json_encode(['status'=>FALSE]);
         }
+        die();
     }
 
     public function update()
@@ -95,7 +98,10 @@ class Crud extends CI_Controller {
             );
             $this->Model_peserta->update(array('id' => $this->input->post('id')), $data);
             echo json_encode(array("status" => TRUE));
+        } else {
+            echo json_encode(['status'=>FALSE]);
         }
+        die();
     }
 
     public function edit($id)
