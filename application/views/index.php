@@ -98,27 +98,39 @@
         });
     </script>
     <script type="text/javascript">
-		    $.ajax({url: "api/show", success: function(result){
-		        result = $.parseJSON(result);
-		        console.log(result);
-		        $.each(result, function(i,l){
-		        	card =
-		    `<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
+      $.ajax({url: "api/show", success: function(result){
+        result = $.parseJSON(result);
+        $.each(result, function(i,l){
+          var card =
+              `<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
               <div class="img-box">
                 <img src="`+l['photoProfile']+`" alt="`+l['nama']+`" class="img img-responsive">
-                <ul class="text-center">
-                  <a href="mailto:`+l['email']+`"><li><i class="fa fa-envelope-o"></i></li></a>
+                <ul class="text-center">`;
+          if(l['email']) {
+            card += `<a href="mailto:`+l['email']+`"><li><i class="fa fa-envelope-o"></i></li></a>`;
+          }
+          if(l['linkFacebook']) {
+            card += `<a href="`+l['linkFacebook']+`"><li><i class="fa fa-facebook"></i></li></a>`;
+          }
+          if(l['linkYoutube']) {
+            card += `<a href="`+l['linkYoutube']+`"><li><i class="fa fa-youtube"></i></li></a>`;
+          }
+          if(l['linkTwitter']) {
+            card += ` <a href="`+l['linkTwitter']+`"><li><i class="fa fa-twitter"></i></li></a>`;
+          }
+          card += `
                 </ul>
-              </div>
-              <div class="text-center">
-              <h1>`+l['nama']+`</h1>
-              <h2>`+l['pekerjaan']+`</h2>
-              <p>`+l['instansi']+`</p>
-              </div>
-            </div>`;
-		        	$(".pt-md").append(card);
-		        });
-		    }});
+                  </div>
+                  <div class="text-center">
+                  <h1>`+l['nama']+`</h1>
+                  <h2>`+l['pekerjaan']+`</h2>
+                  <p>`+l['instansi']+`</p>
+                  <p><a href="`+l['linkProject']+`" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-external-link"></i> Project</a></p>
+                  </div>
+                </div>`;
+          $(".pt-md").append(card);
+        });
+      }});
 		</script>
   </body>
 </html>
