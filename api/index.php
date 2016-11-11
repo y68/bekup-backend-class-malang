@@ -22,6 +22,6 @@
 	}); 
 
 	function DBConnection(){
-		return new PDO('mysql:host=128.199.93.68;dbname=bekup_profil_malang','bekup','83kup');
+		return new PDO('mysql:host=139.59.226.31;dbname=bekup_profil_malang','bekup','83kup');
 	}
 	$app->run();
